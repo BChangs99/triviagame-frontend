@@ -1,38 +1,97 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-left {
+  background-image: linear-gradient(90deg, hsla(212, 100%, 76%, 1) 0%, hsla(209, 77%, 23%, 1) 100%);
+  width: 25vw;
+  height: 100vh;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-right {
+  background-image: linear-gradient(90deg, hsla(209, 77%, 23%, 1) 0%, hsla(212, 100%, 76%, 1) 100%);
+  width: 25vw;
+  height: 100vh;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App-middle {
+  width: 50vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  color: rgb(53, 53, 53);
+  background-color: #B4D6D3;
+  /* border-left: solid 5px #ff6b35;
+  border-right: solid 5px #ff6b35; */
+}
+.App-title {
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(90deg, #2ca2b4, #5598de, #7f87ff, #f65aad, #ec3d43);
+  color: transparent;
+  animation: background-slide 6s infinite;
+  background-size: 200%;
+  font-size: 4rem;
+}
+.App-question-title {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.App-question {
+  font-size: 1.5rem;
+}
+.App-question-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 10vw;
+}
+.App-question-option {
+  border-radius: 20px;
+  border: solid 0.125rem black;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.App-question-option:hover {
+  background-color: #3F8EFC;
+  color: black;
+  box-shadow:rgb(53, 53, 53) 0px 0px 2.5px;
+}
+
+.correct {
+  background-color: rgb(47, 255, 64) !important;
+  color: black;
+  box-shadow:rgb(53, 53, 53) 0px 0px 2.5px;
+}
+
+.incorrect {
+  background-color: rgb(241, 22, 22) !important;
   color: white;
+  box-shadow:rgb(53, 53, 53) 0px 0px 2.5px;
 }
 
-.App-link {
-  color: #61dafb;
+.hidden {
+  background-color: transparent !important;
+  color: black;
 }
 
-@keyframes App-logo-spin {
+.App-next-button {
+  margin-top: 2rem;
+  border-radius: 20px;
+  border: solid 0.125rem black;
+  width: 5vw;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+@keyframes background-slide {
   from {
-    transform: rotate(0deg);
+    background-position: 0% center;
   }
   to {
-    transform: rotate(360deg);
+    background-position: -200% center;
   }
 }
