@@ -40,6 +40,8 @@
 }
 .App-question {
   font-size: 1.5rem;
+  max-width: 25vw;
+  text-align: center;
 }
 .App-question-options {
   display: flex;
@@ -83,6 +85,30 @@
   border-radius: 20px;
   border: solid 0.125rem black;
   width: 5vw;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.App-category-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border: solid 0.125rem black;
+  padding: 1rem;
+  border-radius: 0 0 20px 20px;
+}
+
+.App-categories-left, .App-categories-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.App-category {
+  border-radius: 20px;
+  border: solid 0.125rem black;
+  width: 8vw;
   padding: 1rem;
   margin-bottom: 1rem;
 }
