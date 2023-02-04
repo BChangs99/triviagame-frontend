@@ -1,4 +1,7 @@
-// Mapping trivia cateogry with api call
+import { Card, List } from 'antd';
+import { Fragment } from 'react';
+import "./CategorySelection.css"
+// Mapping trivia category with api call
 // Ty Copilot for having all these mapped out already
 const categories = [
    { "name": "Any Category", "value": 0 },
@@ -27,33 +30,33 @@ const categories = [
    { "name": "Entertainment: Japanese Anime & Manga", "value": 31 },
    { "name": "Entertainment: Cartoon & Animations", "value": 32 }
  ]
- 
-
 
 
 export default function CategorySelection({ handleCategoryClick }) {
    return (
-      <div>
-         <h1>Howdy!</h1>
-         <h2>Select a category below to get going on some trivia</h2>
-         <div className='App-category-holder'>
-            <div className='App-categories-left'>
-               {categories.splice(0, Math.ceil(categories.length/2)).map((category, index) => {
-                  let categorySelected = category
-                  return (
-                     <div key={index} className='App-category' onClick={() => {handleCategoryClick(categorySelected)}}>{category.name}</div>
-                  )
-               })}
-            </div>
-            <div className='App-categories-right'>
-               {categories.splice(Math.ceil(categories.length/2), categories.length).map((category, index) => {
-                  let categorySelected = category
-                  return (
-                     <div key={index} className='App-category' onClick={() => {handleCategoryClick(categorySelected)}}>{category.name}</div>
-                  )
-               })}
-            </div>
-         </div>
-      </div>
+   <Fragment>
+      <h1>Howdy!</h1>
+      <h2>Select a category below to get going on some trivia</h2>
+      <List
+      className='category-card-holder'
+      grid={{
+         gutter: 16,
+         xs: 1,
+         sm: 2,
+         md: 4,
+         lg: 4,
+         xl: 6,
+         xxl: 3,
+      }}
+      dataSource={categories}
+      renderItem={(item) => (
+         <List.Item>
+            <Card size="small" hoverable className="category-card" onClick={() => {handleCategoryClick(item)}} title={item.name}>
+               {item.name}
+         </Card>
+         </List.Item>
+      )}
+      />
+   </Fragment>
    )
 }

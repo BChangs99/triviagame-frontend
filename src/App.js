@@ -1,6 +1,9 @@
 import './App.css';
 import { useState, useEffect, Fragment } from 'react';
-import CategorySelection from './CategorySelection';
+import CategorySelection from './components/organisms/CategorySelection';
+import { Layout, Button, Card, Progress } from 'antd';
+
+const { Content } = Layout;
  
 // This is needed for our trivia answers to be shuffled around each time
 const shuffleArray = array => {
@@ -54,7 +57,11 @@ function App() {
           "answerIndex": 0,
         }
       })
-      setDataBank(triviaData)
+  
+      setDataBank(triviaData.map(item => {
+        item.options = shuffleArray(item.options);
+        return item;
+      }));
     })
   }
 
@@ -72,37 +79,42 @@ function App() {
   }, [questionIndex])
 
   return (
-    <div className="App">
-      <div className='App-left'></div>
-        <div className='App-middle'>
-          {dataBank.length !== 0 && questionIndex !== dataBank.length && 
-            <Fragment>
-                <h1 className='App-title'>
-                  Trivia Thots!
-                </h1>
-                <h2 className='App-question-title'>
-                  Question {questionIndex + 1}:
-                </h2>
-                <h3 className='App-question'>{decodeURIComponent(dataBank[questionIndex].question)}</h3>
-                <div className='App-question-options'>
-                  {shuffleArray(dataBank[questionIndex].options).map((option, index) => { 
-                      return (
-                        <div 
-                          className={`App-question-option ${hideSolution} ${option === dataBank[questionIndex].answer ? 'correct' : 'incorrect'}`}
-                          onClick={handleAnswerClick}
-                          key={index}>
-                            {decodeURIComponent(option)}
-                        </div>
-                      )
-                    })}
-                </div>
-                {nextButton ? <div className='App-next-button' onClick={handleNextClick}>Next</div> : null}
-            </Fragment>
-          }
-          {(questionIndex === dataBank.length || dataBank.length == 0) && <CategorySelection handleCategoryClick={handleCategoryClick}/>}
+    <Layout>
+      <Content>
+        <div className="App">
+          <div className='App-left'></div>
+            <div className='App-middle'>
+              {dataBank.length !== 0 && questionIndex !== dataBank.length && 
+                <Fragment>
+                    <h1 className='App-title'>
+                      Trivia Thots!
+                    </h1>
+                    <Card title={`Question ${questionIndex + 1}`}>
+                      <h3 className='App-question'>{decodeURIComponent(dataBank[questionIndex].question)}</h3>
+                      <div>
+                        {dataBank[questionIndex].options.map((option, index) => { 
+                          return (
+                            <Button 
+                            size="middle"
+                            className={`App-question-option ${hideSolution} ${option === dataBank[questionIndex].answer ? 'correct' : 'incorrect'}`}
+                            onClick={handleAnswerClick}
+                            key={index}>
+                                  {decodeURIComponent(option)}
+                              </Button>
+                            )
+                          })}
+                      </div>
+                    </Card>
+                    <div style={{width: "15vw"}}><Progress size="small" percent={(questionIndex + 1) / dataBank.length * 100} /></div>
+                    {nextButton ? <div className='App-next-button' onClick={handleNextClick}>Next</div> : null}
+                </Fragment>
+              }
+              {(questionIndex === dataBank.length || dataBank.length == 0) && <CategorySelection handleCategoryClick={handleCategoryClick}/>}
+            </div>
+          <div className='App-right'></div>
         </div>
-      <div className='App-right'></div>
-    </div>
+      </Content>
+    </Layout>
   );
 }
 

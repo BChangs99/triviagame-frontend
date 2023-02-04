@@ -43,17 +43,11 @@
   max-width: 25vw;
   text-align: center;
 }
-.App-question-options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 10vw;
-}
 .App-question-option {
   border-radius: 20px;
   border: solid 0.125rem black;
   width: 100%;
-  padding: 1rem;
+  height: 3.5rem;
   margin-bottom: 1rem;
 }
 
