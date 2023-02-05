@@ -107,6 +107,23 @@
   margin-bottom: 1rem;
 }
 
+.App-game-header {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.App-game-score {
+  font-size: 1rem;
+  background-color: white;
+  border: solid 0.125rem white;
+  border-radius: 3px;
+  padding: 0.5rem;
+
+}
+
 @keyframes background-slide {
   from {
     background-position: 0% center;

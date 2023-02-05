@@ -65,6 +65,15 @@ function App() {
     })
   }
 
+  // To reset the game after the last question
+  useEffect(() => {
+    if (dataBank.length !== 0 && questionIndex === dataBank.length) {
+      setQuestionIndex(0);
+      setScore(0);
+    }
+
+    }, [dataBank])
+
 
   const handleNextClick = (e) => {
     setHideSolution("hidden")
@@ -78,33 +87,45 @@ function App() {
     }
   }, [questionIndex])
 
+  const handleAbortGame = () => {
+    setQuestionIndex(0);
+    setScore(0);
+    setDataBank([]);
+  }
+
   return (
     <Layout>
       <Content>
         <div className="App">
           <div className='App-left'></div>
             <div className='App-middle'>
+              <h1 className='App-title'>
+                Trivia Thots!
+              </h1>
               {dataBank.length !== 0 && questionIndex !== dataBank.length && 
                 <Fragment>
-                    <h1 className='App-title'>
-                      Trivia Thots!
-                    </h1>
-                    <Card title={`Question ${questionIndex + 1}`}>
-                      <h3 className='App-question'>{decodeURIComponent(dataBank[questionIndex].question)}</h3>
-                      <div>
-                        {dataBank[questionIndex].options.map((option, index) => { 
-                          return (
-                            <Button 
-                            size="middle"
-                            className={`App-question-option ${hideSolution} ${option === dataBank[questionIndex].answer ? 'correct' : 'incorrect'}`}
-                            onClick={handleAnswerClick}
-                            key={index}>
-                                  {decodeURIComponent(option)}
-                              </Button>
-                            )
-                          })}
+                    <div className='App-game'>
+                      <div className='App-game-header'>
+                        <Button className='App-abort-game' onClick={handleAbortGame}>Abort Game</Button>
+                        <div className='App-game-score'>Score: {score}</div>
                       </div>
-                    </Card>
+                      <Card title={`Question ${questionIndex + 1}`}>
+                        <h3 className='App-question'>{decodeURIComponent(dataBank[questionIndex].question)}</h3>
+                        <div>
+                          {dataBank[questionIndex].options.map((option, index) => { 
+                            return (
+                              <Button 
+                              size="middle"
+                              className={`App-question-option ${hideSolution} ${option === dataBank[questionIndex].answer ? 'correct' : 'incorrect'}`}
+                              onClick={handleAnswerClick}
+                              key={index}>
+                                    {decodeURIComponent(option)}
+                                </Button>
+                              )
+                            })}
+                        </div>
+                      </Card>
+                    </div>
                     <div style={{width: "15vw"}}><Progress size="small" percent={(questionIndex + 1) / dataBank.length * 100} /></div>
                     {nextButton ? <div className='App-next-button' onClick={handleNextClick}>Next</div> : null}
                 </Fragment>
